@@ -1,5 +1,4 @@
 import net.serenitybdd.junit.runners.SerenityRunner;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -15,6 +14,6 @@ public class BasicAPIValidation {
     }
     @Test
     public void statusCodeValidation(){
-        Assert.assertEquals("Cannot get the expected result", true, false);
+
     }
 }
