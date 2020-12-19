@@ -17,6 +17,24 @@ buildscript {
     }
 }
 
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println "\nTest result: ${result.resultType}"
+            println "Test summary: ${result.testCount} tests, " +
+                    "${result.successfulTestCount} succeeded, " +
+                    "${result.failedTestCount} failed, " +
+                    "${result.skippedTestCount} skipped"
+        }
+    }
+    finalizedBy aggregate
+}
+aggregate
+checkOutcomes { dependsOn aggregate }
+
 dependencies {
     testImplementation 'net.serenity-bdd:serenity-core:2.3.8'
     testImplementation 'net.serenity-bdd:serenity-junit:2.3.8'
@@ -25,5 +43,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.18+'
     testImplementation 'org.slf4j:slf4j-simple:1.7+'
     testImplementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    testImplementation 'com.atlassian.oai:swagger-request-validator-restassured:2.11.2'
+
 }
 gradle.startParameter.continueOnFailure = true
